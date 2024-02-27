@@ -32,6 +32,9 @@ namespace MyGame
 
             if (pos.X < _sprite.GetGlobalBounds().Width * -1)
             {
+                GameScene scene = (GameScene)Game.CurrentScene;
+                scene.DecreaseLives();
+
                 MakeDead();
             }
             else
@@ -49,6 +52,8 @@ namespace MyGame
             if (otherGameObject.HasTag("laser"))
             {
                 otherGameObject.MakeDead();
+                GameScene scene = (GameScene)Game.CurrentScene;
+                scene.IncreaseScore();
             }
             Vector2f pos = _sprite.Position;
             pos.X = pos.X + (float)_sprite.GetGlobalBounds().Width / 2.0f;
