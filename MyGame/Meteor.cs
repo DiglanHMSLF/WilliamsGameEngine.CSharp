@@ -1,13 +1,13 @@
 ﻿using GameEngine;
 using SFML.Graphics;
 using SFML.System;
-
+using System;
 
 namespace MyGame
 {
     class Meteor : GameObject
     {
-        private const float Speed = 0.5f;
+        private float Speed = 0.5f;
 
         private readonly Sprite _sprite = new Sprite();
 
@@ -16,6 +16,9 @@ namespace MyGame
             _sprite.Texture = Game.GetTexture("../../../Resources/meteor.png");
             _sprite.Position = pos;
             AssignTag("meteor");
+            SetCollisionCheckEnabled(true);
+
+
         }
 
         public override void Draw()
@@ -35,6 +38,24 @@ namespace MyGame
             {
                 _sprite.Position = new Vector2f(pos.X - Speed * msElapsed, pos.Y);
             }
+        }
+
+        public override FloatRect GetCollisionRect()
+        {
+            return _sprite.GetGlobalBounds();
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            if (otherGameObject.HasTag("laser"))
+            {
+                otherGameObject.MakeDead();
+            }
+            Vector2f pos = _sprite.Position;
+            pos.X = pos.X + (float)_sprite.GetGlobalBounds().Width / 2.0f;
+            pos.Y = pos.Y + (float)_sprite.GetGlobalBounds().Height / 2.0f;
+            Explosion explosion = new Explosion(pos);
+            Game.CurrentScene.AddGameObject(explosion);
+            MakeDead();
         }
     }
 }
