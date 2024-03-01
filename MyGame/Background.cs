@@ -8,16 +8,21 @@ namespace MyGame
 {
     class Background : GameObject
     {
-        private float MSpeed = 1f;
+        private float MSpeed = 0.5f;
 
         private readonly Sprite _bg = new Sprite();
+        
         public Background(Vector2f pos)
         {
             _bg.Texture = Game.GetTexture("../../../Resources/background.png");
             _bg.Position = pos;
+            
+
             AssignTag("background");
 
         }
+
+       
 
         public override void Draw()
         {
