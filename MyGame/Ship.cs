@@ -71,6 +71,8 @@ namespace MyGame
                     Laser laser2 = new Laser(new Vector2f(laserX2, laserY2));
                     Game.CurrentScene.AddGameObject(laser);
                     Game.CurrentScene.AddGameObject(laser2);
+
+                    
                 }
 
             }
